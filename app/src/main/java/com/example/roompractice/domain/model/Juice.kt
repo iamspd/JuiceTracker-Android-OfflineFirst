@@ -5,5 +5,5 @@ data class Juice(
     val name: String,
     val description: String,
     val color: String,
-    val rating: Int
+    val rating: Float
 )
