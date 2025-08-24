@@ -1,7 +1,8 @@
 package com.example.roompractice.data.repository
 
 import com.example.roompractice.data.dao.JuiceDao
-import com.example.roompractice.data.entity.JuiceEntity
+import com.example.roompractice.data.mapper.toJuice
+import com.example.roompractice.data.mapper.toJuiceEntity
 import com.example.roompractice.domain.model.Juice
 import com.example.roompractice.domain.repository.JuiceRepository
 import kotlinx.coroutines.flow.Flow
@@ -31,24 +32,4 @@ class JuiceRepositoryImpl(
             juiceEntityList.map { it.toJuice() }
         }
     }
-}
-
-private fun Juice.toJuiceEntity(): JuiceEntity {
-    return JuiceEntity(
-        id = this.id,
-        name = this.name,
-        description = this.description,
-        color = this.color,
-        rating = this.rating
-    )
-}
-
-private fun JuiceEntity.toJuice(): Juice {
-    return Juice(
-        id = this.id,
-        name = this.name,
-        description = this.description,
-        color = this.color,
-        rating = this.rating
-    )
 }
