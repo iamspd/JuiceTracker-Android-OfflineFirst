@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_spacing">4dp</dimen>
+    <dimen name="medium_spacing">8dp</dimen>
+    <dimen name="large_spacing">12dp</dimen>
+    <dimen name="extra_large_spacing">16dp</dimen>
+
+    <dimen name="image_scale">52dp</dimen>
+    <dimen name="list_item_scale">64dp</dimen>
+    <dimen name="divider_thickness">1dp</dimen>
+</resources>

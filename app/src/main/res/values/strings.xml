@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RoomPractice</string>
+    <string name="juice_image_content_description">%1$s colored %2$s juice</string>
+    <string name="delete_button_content_description">Delete %s juice</string>
 </resources>
