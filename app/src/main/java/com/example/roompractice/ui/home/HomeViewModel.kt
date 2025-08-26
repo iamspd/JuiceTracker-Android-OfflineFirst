@@ -38,6 +38,48 @@ class HomeViewModel(
     private val _currentJuice = MutableStateFlow<Juice?>(null)
     val currentJuice: StateFlow<Juice?> = _currentJuice.asStateFlow()
 
+    fun onListEvent(event: JuiceListEvent) {
+        when (event) {
+            is JuiceListEvent.JuiceSelected -> onJuiceSelected(event.juice)
+            is JuiceListEvent.JuiceDeleted -> deleteJuice(event.juice)
+        }
+    }
+
+    fun onFormEvent(event: JuiceFormEvent) {
+        when (event) {
+            is JuiceFormEvent.NameChanged -> {
+                _currentJuice.update { it?.copy(name = event.name) }
+            }
+
+            is JuiceFormEvent.DescriptionChanged -> {
+                _currentJuice.update { it?.copy(description = event.description) }
+            }
+
+            is JuiceFormEvent.ColorChanged -> {
+                _currentJuice.update { it?.copy(color = event.color) }
+            }
+
+            is JuiceFormEvent.RatingChanged -> {
+                val ratingValue = event.rating.toFloatOrNull() ?: 0f
+                _currentJuice.update { it?.copy(rating = ratingValue) }
+            }
+
+            is JuiceFormEvent.SaveClicked -> {
+                saveJuice()
+            }
+
+            is JuiceFormEvent.CancelClicked -> {
+                _currentJuice.update { null }
+            }
+        }
+    }
+
+    fun onAddNewJuice() {
+        _currentJuice.update {
+            Juice(id = 0L, name = "", description = "", color = "Red", rating = 0f)
+        }
+    }
+
     fun onJuiceSelected(juice: Juice) {
         _currentJuice.update { juice }
     }
