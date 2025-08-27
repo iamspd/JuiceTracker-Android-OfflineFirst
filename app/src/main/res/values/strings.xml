@@ -2,4 +2,14 @@
     <string name="app_name">RoomPractice</string>
     <string name="juice_image_content_description">%1$s colored %2$s juice</string>
     <string name="delete_button_content_description">Delete %s juice</string>
+    <string name="clear_button_content_description">Clear typed text</string>
+    <string name="label_name">Name</string>
+    <string name="label_description">Description</string>
+    <string name="label_rating">Rating</string>
+    <string name="save_button_text">Save</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="label_color_dropdown_menu">Select color</string>
+
+    <string name="bottom_sheet_title_update_juice">Update Juice</string>
+    <string name="bottom_sheet_title_new_juice">New Juice</string>
 </resources>

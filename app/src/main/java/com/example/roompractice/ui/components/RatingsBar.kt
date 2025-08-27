@@ -1,4 +1,4 @@
-package com.example.roompractice.ui.home.components
+package com.example.roompractice.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

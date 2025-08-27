@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.graphics.toColorInt
 import com.example.roompractice.R
 import com.example.roompractice.domain.model.Juice
+import com.example.roompractice.ui.components.RatingsBar
 import com.example.roompractice.ui.theme.RoomPracticeTheme
 
 @Preview(showBackground = true)

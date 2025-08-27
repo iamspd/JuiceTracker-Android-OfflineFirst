@@ -8,4 +8,6 @@
     <dimen name="image_scale">52dp</dimen>
     <dimen name="list_item_scale">64dp</dimen>
     <dimen name="divider_thickness">1dp</dimen>
+    <dimen name="button_scale">94dp</dimen>
+    <dimen name="color_circle_scale">24dp</dimen>
 </resources>
