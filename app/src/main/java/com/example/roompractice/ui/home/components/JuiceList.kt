@@ -152,7 +152,8 @@ fun JuiceListItem(
                 )
                 Text(
                     text = juice.description,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1
                 )
                 RatingsBar(rating = juice.rating)
             }
