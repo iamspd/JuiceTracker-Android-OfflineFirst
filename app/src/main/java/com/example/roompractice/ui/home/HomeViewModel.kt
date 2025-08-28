@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -46,6 +47,18 @@ class HomeViewModel(
 
     private val _currentJuice = MutableStateFlow<Juice?>(null)
     val currentJuice: StateFlow<Juice?> = _currentJuice.asStateFlow()
+
+    val isSaveButtonEnabled: StateFlow<Boolean> =
+        combine(currentJuice, ratingInput) { juice, rating ->
+            juice != null &&
+                    juice.name.isNotBlank() &&
+                    juice.description.isNotBlank() &&
+                    rating.isNotBlank()
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = false
+        )
 
     fun onSheetDismissed() {
         _currentJuice.update { null }
@@ -98,6 +111,7 @@ class HomeViewModel(
         _currentJuice.update {
             Juice(id = 0L, name = "", description = "", color = "Red", rating = 0f)
         }
+        _ratingInput.update { "" }
     }
 
     private fun onJuiceSelected(juice: Juice) {
