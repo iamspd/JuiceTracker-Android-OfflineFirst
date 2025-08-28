@@ -7,9 +7,12 @@ import com.example.roompractice.domain.usecase.AddJuiceUseCase
 import com.example.roompractice.domain.usecase.DeleteJuiceUseCase
 import com.example.roompractice.domain.usecase.GetAllJuicesUseCase
 import com.example.roompractice.domain.usecase.UpdateJuiceUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -35,13 +38,29 @@ class HomeViewModel(
             initialValue = HomeUiState()
         )
 
+    private val _ratingInput = MutableStateFlow("0.0")
+    val ratingInput: StateFlow<String> = _ratingInput.asStateFlow()
+
+    private val _dismissBottomSheet = MutableSharedFlow<Unit>()
+    val dismissBottomSheet: SharedFlow<Unit> = _dismissBottomSheet.asSharedFlow()
+
     private val _currentJuice = MutableStateFlow<Juice?>(null)
     val currentJuice: StateFlow<Juice?> = _currentJuice.asStateFlow()
 
+    fun onSheetDismissed() {
+        _currentJuice.update { null }
+    }
+
     fun onListEvent(event: JuiceListEvent) {
         when (event) {
-            is JuiceListEvent.JuiceSelected -> onJuiceSelected(event.juice)
-            is JuiceListEvent.JuiceDeleted -> deleteJuice(event.juice)
+            is JuiceListEvent.JuiceSelected -> {
+                onJuiceSelected(event.juice)
+                _ratingInput.update { event.juice.rating.toString() }
+            }
+
+            is JuiceListEvent.JuiceDeleted -> {
+                deleteJuice(event.juice)
+            }
         }
     }
 
@@ -60,8 +79,7 @@ class HomeViewModel(
             }
 
             is JuiceFormEvent.RatingChanged -> {
-                val ratingValue = event.rating.toFloatOrNull() ?: 0f
-                _currentJuice.update { it?.copy(rating = ratingValue) }
+                _ratingInput.update { event.rating }
             }
 
             is JuiceFormEvent.SaveClicked -> {
@@ -69,7 +87,9 @@ class HomeViewModel(
             }
 
             is JuiceFormEvent.CancelClicked -> {
-                _currentJuice.update { null }
+                viewModelScope.launch {
+                    _dismissBottomSheet.emit(Unit)
+                }
             }
         }
     }
@@ -78,19 +98,23 @@ class HomeViewModel(
         _currentJuice.update {
             Juice(id = 0L, name = "", description = "", color = "Red", rating = 0f)
         }
+        _ratingInput.value = ""
     }
 
-    fun onJuiceSelected(juice: Juice) {
+    private fun onJuiceSelected(juice: Juice) {
         _currentJuice.update { juice }
     }
 
-    fun deleteJuice(juice: Juice) {
+    private fun deleteJuice(juice: Juice) {
         viewModelScope.launch {
             deleteJuiceUseCase(juice)
         }
     }
 
-    fun saveJuice() {
+    private fun saveJuice() {
+        val ratingValue = _ratingInput.value.toFloatOrNull() ?: 0f
+        _currentJuice.update { it?.copy(rating = ratingValue) }
+
         viewModelScope.launch {
             _currentJuice.value?.let { juice ->
                 if (juice.id == 0L) {
@@ -99,6 +123,7 @@ class HomeViewModel(
                     updateJuiceUseCase(juice)
                 }
             }
+            _dismissBottomSheet.emit(Unit)
         }
     }
 }
