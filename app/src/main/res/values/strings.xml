@@ -5,11 +5,15 @@
     <string name="clear_button_content_description">Clear typed text</string>
     <string name="label_name">Name</string>
     <string name="label_description">Description</string>
-    <string name="label_rating">Rating</string>
+    <string name="label_rating">Rating (0.0)</string>
     <string name="save_button_text">Save</string>
     <string name="cancel_button_text">Cancel</string>
     <string name="label_color_dropdown_menu">Select color</string>
 
     <string name="bottom_sheet_title_update_juice">Update Juice</string>
     <string name="bottom_sheet_title_new_juice">New Juice</string>
+    <string name="top_app_bar_title">Juice Tracker</string>
+    <string name="home_screen_juice_list_empty_text">Tracker is empty! \nAdd (+) new juice from the floating button below. </string>
+    <string name="fab_content_description">Add New Juice</string>
+    <string name="juice_list_item_click_label">Update Juice by clicking the list item.</string>
 </resources>

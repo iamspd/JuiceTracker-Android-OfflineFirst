@@ -1,6 +1,8 @@
 package com.example.roompractice.ui.home.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +34,7 @@ import androidx.core.graphics.toColorInt
 import com.example.roompractice.R
 import com.example.roompractice.domain.model.Juice
 import com.example.roompractice.ui.components.RatingsBar
+import com.example.roompractice.ui.home.JuiceListEvent
 import com.example.roompractice.ui.theme.RoomPracticeTheme
 
 @Preview(showBackground = true)
@@ -46,6 +50,7 @@ fun PreviewListItem() {
     RoomPracticeTheme {
         JuiceListItem(
             juice = juice,
+            onJuiceItemClick = {},
             onDeleteIconClick = {},
             modifier = Modifier.fillMaxWidth()
         )
@@ -67,7 +72,7 @@ fun PreviewJuiceList() {
         }
         JuiceList(
             juices = juices,
-            onJuiceItemDeleteClick = {},
+            onListEvent = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -76,23 +81,25 @@ fun PreviewJuiceList() {
 @Composable
 fun JuiceList(
     juices: List<Juice>,
-    onJuiceItemDeleteClick: (Juice) -> Unit,
+    onListEvent: (JuiceListEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(R.dimen.medium_spacing)
+            dimensionResource(R.dimen.large_spacing)
         ),
         contentPadding = PaddingValues(
-            horizontal = dimensionResource(R.dimen.large_spacing),
-            vertical = dimensionResource(R.dimen.large_spacing)
+            horizontal = dimensionResource(R.dimen.extra_large_spacing),
+            vertical = dimensionResource(R.dimen.extra_large_spacing)
         ),
         modifier = modifier
     ) {
         items(juices, key = { it.id }) { juice ->
             JuiceListItem(
                 juice = juice,
-                onDeleteIconClick = { onJuiceItemDeleteClick(juice) }
+                onJuiceItemClick = { onListEvent(JuiceListEvent.JuiceSelected(it)) },
+                onDeleteIconClick = { onListEvent(JuiceListEvent.JuiceDeleted(it)) },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -101,9 +108,11 @@ fun JuiceList(
 @Composable
 fun JuiceListItem(
     juice: Juice,
+    onJuiceItemClick: (Juice) -> Unit,
     onDeleteIconClick: (Juice) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     Column(
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(R.dimen.large_spacing)
@@ -115,7 +124,13 @@ fun JuiceListItem(
                 dimensionResource(R.dimen.medium_spacing)
             ),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = { onJuiceItemClick(juice) },
+                    onClickLabel = stringResource(R.string.juice_list_item_click_label)
+                )
         ) {
             val juiceIconContentDescription = stringResource(
                 R.string.juice_image_content_description,

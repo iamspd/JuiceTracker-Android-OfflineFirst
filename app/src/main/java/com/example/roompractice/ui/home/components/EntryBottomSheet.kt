@@ -58,6 +58,7 @@ fun PreviewEntryBottomSheet() {
 fun SheetForm(
     juice: Juice?,
     onFormEvent: (JuiceFormEvent) -> Unit,
+    ratingInput: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -87,7 +88,7 @@ fun SheetForm(
                 modifier = Modifier.fillMaxWidth()
             )
             SheetInputRow(
-                fieldValue = currentJuice.rating.toString(),
+                fieldValue = ratingInput,
                 onFieldValueChange = { onFormEvent(JuiceFormEvent.RatingChanged(it)) },
                 label = stringResource(R.string.label_rating),
                 onClearClick = { onFormEvent(JuiceFormEvent.RatingChanged("")) },
@@ -109,7 +110,7 @@ fun ColorPicker(
     onColorSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = listOf("Red", "Orange", "Yellow", "Green", "Blue")
+    val colors = listOf("Red", "Magenta", "Yellow", "Green", "Blue")
     var isExpanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
@@ -123,9 +124,13 @@ fun ColorPicker(
             readOnly = true,
             singleLine = true,
             label = { Text(stringResource(R.string.label_color_dropdown_menu)) },
-            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(MenuAnchorType.PrimaryNotEditable),
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-            colors = ExposedDropdownMenuDefaults.textFieldColors()
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                focusedContainerColor = MaterialTheme.colorScheme.surface
+            )
         )
         ExposedDropdownMenu(
             expanded = isExpanded,
@@ -217,11 +222,13 @@ fun SheetInputRow(
         onValueChange = onFieldValueChange,
         label = { Text(label) },
         trailingIcon = {
-            IconButton(onClearClick) {
-                Icon(
-                    imageVector = Icons.Outlined.Cancel,
-                    contentDescription = stringResource(R.string.clear_button_content_description)
-                )
+            if (fieldValue.isNotBlank()) {
+                IconButton(onClearClick) {
+                    Icon(
+                        imageVector = Icons.Outlined.Cancel,
+                        contentDescription = stringResource(R.string.clear_button_content_description)
+                    )
+                }
             }
         },
         modifier = modifier
