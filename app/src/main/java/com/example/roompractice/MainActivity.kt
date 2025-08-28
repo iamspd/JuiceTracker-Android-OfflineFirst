@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.roompractice.ui.home.HomeScreen
 import com.example.roompractice.ui.theme.RoomPracticeTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,6 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RoomPracticeTheme {
+                HomeScreen()
             }
         }
     }
