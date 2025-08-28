@@ -49,7 +49,8 @@ fun PreviewEntryBottomSheet() {
     RoomPracticeTheme {
         SheetButtonRow(
             onSaveClick = {},
-            onCancelClick = {}
+            onCancelClick = {},
+            isSaveButtonEnabled = true
         )
     }
 }
@@ -59,6 +60,7 @@ fun SheetForm(
     juice: Juice?,
     onFormEvent: (JuiceFormEvent) -> Unit,
     ratingInput: String,
+    isSaveButtonEnabled: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -95,6 +97,7 @@ fun SheetForm(
                 modifier = Modifier.fillMaxWidth()
             )
             SheetButtonRow(
+                isSaveButtonEnabled = isSaveButtonEnabled,
                 onSaveClick = { onFormEvent(JuiceFormEvent.SaveClicked) },
                 onCancelClick = { onFormEvent(JuiceFormEvent.CancelClicked) },
                 modifier = Modifier.fillMaxWidth()
@@ -162,6 +165,7 @@ fun ColorPicker(
 
 @Composable
 fun SheetButtonRow(
+    isSaveButtonEnabled: Boolean,
     onSaveClick: () -> Unit,
     onCancelClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -180,6 +184,7 @@ fun SheetButtonRow(
             Text(stringResource(R.string.cancel_button_text))
         }
         FilledTonalButton(
+            enabled = isSaveButtonEnabled,
             onClick = onSaveClick,
             modifier = Modifier.width(dimensionResource(R.dimen.button_scale))
         ) {

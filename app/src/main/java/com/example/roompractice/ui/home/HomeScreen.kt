@@ -38,6 +38,7 @@ fun HomeScreen() {
     val homeUiState by homeViewModel.homeUiState.collectAsStateWithLifecycle()
     val currentJuice by homeViewModel.currentJuice.collectAsStateWithLifecycle()
     val ratingInput by homeViewModel.ratingInput.collectAsStateWithLifecycle()
+    val isSaveButtonEnabled by homeViewModel.isSaveButtonEnabled.collectAsStateWithLifecycle()
 
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberStandardBottomSheetState(
@@ -77,6 +78,7 @@ fun HomeScreen() {
                 juice = currentJuice,
                 onFormEvent = { homeViewModel.onFormEvent(it) },
                 ratingInput = ratingInput,
+                isSaveButtonEnabled = isSaveButtonEnabled,
                 modifier = Modifier.fillMaxWidth()
             )
         },
