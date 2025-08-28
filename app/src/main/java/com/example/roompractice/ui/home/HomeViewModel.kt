@@ -38,7 +38,7 @@ class HomeViewModel(
             initialValue = HomeUiState()
         )
 
-    private val _ratingInput = MutableStateFlow("0.0")
+    private val _ratingInput = MutableStateFlow("")
     val ratingInput: StateFlow<String> = _ratingInput.asStateFlow()
 
     private val _dismissBottomSheet = MutableSharedFlow<Unit>()
@@ -98,7 +98,6 @@ class HomeViewModel(
         _currentJuice.update {
             Juice(id = 0L, name = "", description = "", color = "Red", rating = 0f)
         }
-        _ratingInput.value = ""
     }
 
     private fun onJuiceSelected(juice: Juice) {
