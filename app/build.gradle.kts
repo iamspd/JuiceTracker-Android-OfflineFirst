@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.material.icons.extended)
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("app.cash.turbine:turbine:1.2.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
