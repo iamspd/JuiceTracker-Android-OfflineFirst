@@ -6,16 +6,17 @@
         android:name="com.JuiceApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RoomPractice">
+        android:theme="@style/Theme.RoomPractice"
+        tools:targetApi="33">
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.RoomPractice">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
