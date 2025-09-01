@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -73,7 +72,7 @@ fun PreviewJuiceList() {
         JuiceList(
             juices = juices,
             onListEvent = {},
-            modifier = Modifier.fillMaxSize()
+            contentPadding = PaddingValues()
         )
     }
 }
@@ -81,6 +80,7 @@ fun PreviewJuiceList() {
 @Composable
 fun JuiceList(
     juices: List<Juice>,
+    contentPadding: PaddingValues,
     onListEvent: (JuiceListEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,10 +88,7 @@ fun JuiceList(
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(R.dimen.large_spacing)
         ),
-        contentPadding = PaddingValues(
-            horizontal = dimensionResource(R.dimen.extra_large_spacing),
-            vertical = dimensionResource(R.dimen.extra_large_spacing)
-        ),
+        contentPadding = contentPadding,
         modifier = modifier
     ) {
         items(juices, key = { it.id }) { juice ->

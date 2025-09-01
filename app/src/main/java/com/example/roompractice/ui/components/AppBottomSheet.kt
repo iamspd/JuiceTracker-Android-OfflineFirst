@@ -30,7 +30,6 @@ fun AppBottomSheet(
                 modifier = Modifier.padding(
                     start = dimensionResource(R.dimen.extra_large_spacing),
                     end = dimensionResource(R.dimen.extra_large_spacing),
-                    bottom = dimensionResource(R.dimen.extra_large_spacing),
                 )
             ) { sheetContent() }
         },

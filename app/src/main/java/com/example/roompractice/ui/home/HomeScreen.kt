@@ -2,9 +2,13 @@ package com.example.roompractice.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -81,6 +86,7 @@ fun HomeScreen() {
                 isSaveButtonEnabled = isSaveButtonEnabled,
                 modifier = Modifier.fillMaxWidth()
             )
+            Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
         },
         mainContent = {
             Scaffold(
@@ -115,6 +121,7 @@ fun HomeScreen() {
                 } else {
                     JuiceList(
                         juices = homeUiState.juices,
+                        contentPadding = innerPadding,
                         onListEvent = { event ->
                             homeViewModel.onListEvent(event)
                             if (event is JuiceListEvent.JuiceSelected) {
@@ -123,7 +130,10 @@ fun HomeScreen() {
                         },
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding)
+                            .padding(
+                                horizontal = dimensionResource(R.dimen.extra_large_spacing),
+                                vertical = dimensionResource(R.dimen.medium_spacing)
+                            )
                     )
                 }
             }
