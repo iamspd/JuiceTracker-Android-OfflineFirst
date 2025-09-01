@@ -1,8 +1,10 @@
 # JuiceTracker-Android-OfflineFirst
 Juice Tracker is a modern, offline-first Android application built to demonstrate best practices in local data persistence with Room, a reactive UI with Jetpack Compose, and a robust MVVM + Clean Architecture. The app allows users to track juices they've consumed, with all data saved locally for a seamless offline experience.
 
-//image
-<!--<img src="https://github.com/user-attachments/assets/02529146-0875-40e8-b357-d31ce2bf266c" alt="Home Screen" style="width:25%; height:auto;">-->
+<img alt="Home Screen" src="https://github.com/user-attachments/assets/00469fd7-c2e5-42a8-9a9a-e412385afe2a" style="width:20%; height:auto;" />
+<img alt="Add New Juice" src="https://github.com/user-attachments/assets/f3adb353-a29d-4549-9ab0-d998231ce24f" style="width:20%; height:auto;" />
+<img alt="Home Screen with List" src="https://github.com/user-attachments/assets/71eb0119-7ef1-4ee5-9d08-56e27f8ae76c" style="width:20%; height:auto;" />
+<img alt="Update Screen" src="https://github.com/user-attachments/assets/5f0102f5-9f59-425f-80e9-da50ef207316" style="width:20%; height:auto;" />
 
 ## ✨ Features
 - Track Juices: View a list of all saved juices.
